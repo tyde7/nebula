@@ -4,6 +4,8 @@ GO111MODULE = on
 export GO111MODULE
 CGO_ENABLED = 0
 export CGO_ENABLED
+GOAMD64 = v3
+export GOAMD64
 
 # Set up OS specific bits
 ifeq ($(OS),Windows_NT)
@@ -32,19 +34,7 @@ endif
 
 LDFLAGS = -X main.Build=$(BUILD_NUMBER)
 
-ALL_LINUX = linux-amd64 \
-	linux-386 \
-	linux-ppc64le \
-	linux-arm-5 \
-	linux-arm-6 \
-	linux-arm-7 \
-	linux-arm64 \
-	linux-mips \
-	linux-mipsle \
-	linux-mips64 \
-	linux-mips64le \
-	linux-mips-softfloat \
-	linux-riscv64
+ALL_LINUX = linux-amd64
 
 ALL_FREEBSD = freebsd-amd64 \
 	freebsd-arm64
