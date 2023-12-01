@@ -4,8 +4,7 @@ GO111MODULE = on
 export GO111MODULE
 CGO_ENABLED = 0
 export CGO_ENABLED
-GOAMD64 = v3
-export GOAMD64
+
 
 # Set up OS specific bits
 ifeq ($(OS),Windows_NT)
@@ -32,7 +31,7 @@ ifndef BUILD_NUMBER
 	endif
 endif
 
-LDFLAGS = -X main.Build=$(BUILD_NUMBER)
+LDFLAGS = -X main.Build=$(BUILD_NUMBER) -s -w
 
 ALL_LINUX = linux-amd64
 
