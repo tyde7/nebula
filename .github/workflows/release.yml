@@ -46,6 +46,7 @@ jobs:
         run: |
           make BUILD_NUMBER="${GITHUB_REF#refs/tags/v}-v4" GOAMD64=v4 release-linux
           mkdir release
+          for i in *.tar.gz; do mv "$i" "${i%.*}_goamdv4.tar.gz"; done
           mv build/*.tar.gz release
 
       - name: Upload artifacts
