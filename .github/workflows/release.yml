@@ -171,4 +171,5 @@ jobs:
             --verify-tag \
             --title "Release ${{ github.ref_name }}" \
             "${{ github.ref_name }}" \
+            SHASUM256.txt *-latest/*.zip *-latest/*.tar.gz || gh release upload "${{ github.ref_name }}" \
             SHASUM256.txt *-latest/*.zip *-latest/*.tar.gz
