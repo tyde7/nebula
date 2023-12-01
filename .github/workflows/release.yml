@@ -20,7 +20,31 @@ jobs:
 
       - name: Build
         run: |
-          make BUILD_NUMBER="${GITHUB_REF#refs/tags/v}" GOAMD64=v3 release-linux
+          make BUILD_NUMBER="${GITHUB_REF#refs/tags/v}-v3" GOAMD64=v3 release-linux
+          export GOAMD64=v3
+          mkdir release
+          mv build/*.tar.gz release
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: linux-latest
+          path: release
+          
+  build-linux-v4:
+    name: Build Linux for GOAMD64v4
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v4
+        with:
+          go-version-file: 'go.mod'
+          check-latest: true
+
+      - name: Build
+        run: |
+          make BUILD_NUMBER="${GITHUB_REF#refs/tags/v}-v4" GOAMD64=v4 release-linux
           mkdir release
           mv build/*.tar.gz release
 
@@ -113,7 +137,7 @@ jobs:
 
   release:
     name: Create and Upload Release
-    needs: [build-linux, build-darwin, build-windows]
+    needs: [build-linux, build-darwin, build-windows,build-linux-v4]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
